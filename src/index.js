@@ -25,7 +25,7 @@ function fetchCoutry(country) {
         if (country.length === 1) { makeCountryCard(country[0]) }
         else if(country.length >=2 && country.length <= 10) {
             makeCountryList(country)
-        } else {
+        } else if(country.length > 10) {
             error({
                 title: 'To many matches found.',
                 text: 'Please enter a more specific query.'
