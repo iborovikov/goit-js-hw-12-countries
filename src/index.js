@@ -19,10 +19,16 @@ function onInputChange(e) {
 function fetchCoutry(country) {
     if (country === '') {
       return resetPage();
-    }
-    fetch(`https://restcountries.eu/rest/v2/name/${country}`).then(r => { return r.json() }).then(countryArr => { return countryArr }).then(country => {
+    };
+    fetch(`https://restcountries.eu/rest/v2/name/${country}`).then(r => { return r.json() }).then(country => {
         resetPage();
-        if (country.length === 1) { makeCountryCard(country[0]) }
+        makePageMarkup(country);
+    }).catch(error => {
+        console.log(error)
+    })
+};
+function makePageMarkup(country) {
+    if (country.length === 1) { makeCountryCard(country[0]) }
         else if(country.length >=2 && country.length <= 10) {
             makeCountryList(country)
         } else if(country.length > 10) {
@@ -30,8 +36,7 @@ function fetchCoutry(country) {
                 title: 'To many matches found.',
                 text: 'Please enter a more specific query.'
                 });
-        }
-    })
+    };
 };
 function makeCountryCard(country) {
     mainContainerRef.insertAdjacentHTML('beforeend', countryCardTmpl(country))
